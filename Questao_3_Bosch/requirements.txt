@@ -1,0 +1,2 @@
+Para rodar o código acima, será nescessário ter instalada na maquina o Python com versão 3.10 ou superior.
+Para instalar a versão mais rescente do Python, basta acessar: https://www.python.org/downloads/.
