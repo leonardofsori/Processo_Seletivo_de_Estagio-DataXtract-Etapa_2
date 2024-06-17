@@ -14,13 +14,15 @@ print("Conexão recebida de ", addr)
 tabela = client_socket.recv(1024)
 tabela = tabela.decode()
 
+# Criar um arquivo novo caso a resposta do usuário seja "sim"
 if tabela == "S" or tabela == "s":
     with open("dados_obtidos.csv", mode="w") as create:
         aux = "velocidade" + ",temperatura motor" + ",pressao pneu dianteiro esquerdo" + ",pressao pneu dianteiro direito" + ",pressao pneu traseiro esquerdo" + ",pressao pneu traseiro direito"+ ",rpm" + ",nivel combustivel"+ ",odometro" + ",status farol\n"
         create.write(aux)
         mensagem1 = "Arquivo novo criado!"
         client_socket.send(mensagem1.encode())
-        
+
+# Caso a resposta seja "não", o sistema irá verificar se existe um arquivo .csv. Caso não exista, o código criará um novo arquivo
 elif tabela == "N" or tabela == "n":
     try:     
         with open("dados_obtidos.csv", mode="r") as file:
@@ -50,7 +52,8 @@ while True:
             my_tuplas = i.split(":")
             novo_elemento = {my_tuplas[0]: my_tuplas[1]}
             dicionario.update(novo_elemento)
-        
+
+        # Adicionando os dados no arquivo .csv
         with open('dados_obtidos.csv', mode="a") as file:
             aux = str(dicionario["velocidade"]) + "," + str(dicionario["temperatura_motor"]) + "," + str(dicionario["pressao_pneu_dianteiro_esquerdo"]) + "," + str(dicionario["pressao_pneu_dianteiro_direito"]) + "," + str(dicionario["pressao_pneu_traseiro_esquerdo"]) + "," + str(dicionario["pressao_pneu_traseiro_direito"]) + "," + str(dicionario["rpm"]) + "," + str(dicionario["nivel_combustivel"]) + "," + str(dicionario["odometro"]) + "," + str(dicionario["status_farol"])
             file.write(aux)
