@@ -2,8 +2,6 @@ import random
 import time
 import socket
 
-
-maximo = int(input("Deseja realizar quantas medições?: "))
 tabela_nova = str(input("Deseja criar um novo arquivo para os dados? [S/N]: "))
 while tabela_nova != "S" and tabela_nova != "s" and tabela_nova != "N" and tabela_nova != "n":
     tabela_nova = str(input("Insira uma resposta valida! [S/N]: "))
@@ -32,14 +30,10 @@ def dados_simulados():
     }
     return dados
 
-
-
-i = 0
 # Loop para simular a coleta contínua de dados
-while i<maximo:
+while True:
     dados_coletados = dados_simulados()                 # Armazena os dados simulados/medidos em uma variavel
     print("\nDados coletados:", dados_coletados)     # Imprime o resultado dos dados simulados/medidos para o usuário
     msg = str(dados_coletados)                          # Transoforma os dados simulados/medidos em uma string para enviar para o servidor
     client_socket.send(msg.encode())                    # Envia os dados do coletor até o servidor (utilizando o encode para transformar a string em bytes)
-    i += 1                                              # Controle da quantidade de valores medidos o usuário deseja
-    time.sleep(1)                                       # Intervalo de tempo entre as coletas (simulado em segundos)
+    time.sleep(0.5)                                       # Intervalo de tempo entre as coletas (simulado em segundos)
